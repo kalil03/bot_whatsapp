@@ -54,6 +54,13 @@ const handleMessage = async (message: any) => {
     const body = message.body || '';
     const userId = message.author || message.from;
 
+    // Se a mensagem for minha (enviada pelo bot), redirecionamos o 'from' para o 'to'
+    // para que a resposta seja enviada ao chat correto (grupo ou contato),
+    // já que no whatsapp-web.js em mensagens nossas o 'from' é o nosso próprio JID.
+    if (isFromMe && message.to) {
+      message.from = message.to;
+    }
+
     await DatabaseService.incrementUserMessage(userId).catch(err => {
       logger.error({ err }, 'Erro ao incrementar mensagem');
     });
