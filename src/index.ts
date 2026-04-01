@@ -3,6 +3,8 @@ import { logger } from './app/logger';
 import { client } from './app/client';
 import { Command } from './types/command';
 import { DatabaseService } from './services/database.service';
+import { db } from './db/client';
+import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
 import { isOnCooldown } from './utils/cooldown';
 import fs from 'fs';
 import path from 'path';
@@ -90,5 +92,18 @@ client.on('message_create', (msg) => {
   if (msg.fromMe) handleMessage(msg);
 });
 
-logger.info('🚀 Inicializando bot...');
-client.initialize();
+
+logger.info('🚀 Inicializando bot e banco de dados...');
+
+(async () => {
+  try {
+    // Executa migrações automáticas para garantir que as tabelas existam (Hugging Face / Produção)
+    await migrate(db, { migrationsFolder: path.resolve(__dirname, 'db/migrations') });
+    logger.info('📦 Banco de dados sincronizado!');
+    
+    client.initialize();
+  } catch (error) {
+    logger.error({ err: error }, 'Erro ao iniciar o banco de dados');
+    process.exit(1);
+  }
+})();
