@@ -1,3 +1,12 @@
+---
+title: Bot WhatsApp Gemini
+emoji: 🤖
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
+
 # Bot WhatsApp
 
 Bot para WhatsApp desenvolvido com whatsapp-web.js e TypeScript. Focado em estabilidade de áudio para dispositivos móveis e integração com a Inteligência Artificial do Google.
