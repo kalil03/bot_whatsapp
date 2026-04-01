@@ -1,0 +1,26 @@
+node_modules/
+dist/
+.env
+
+# WhatsApp Sessão e Cache
+.wwebjs_auth/
+.wwebjs_cache/
+
+# Bancos de Dados SQLite
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Outros
+npm-debug.log
+yarn-error.log
+
+# Scripts Temporários e Residuais
+*-player-script.js
+test_*.ts
+smoke_test*.ts
+*.txt
+yt_test*
+EOF
+bin/
+test.mp4.part
