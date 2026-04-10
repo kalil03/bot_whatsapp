@@ -9,7 +9,7 @@ pinned: false
 
 # Bot WhatsApp
 
-Bot para WhatsApp desenvolvido com whatsapp-web.js e TypeScript. Focado em estabilidade de áudio para dispositivos móveis e integração com a Inteligência Artificial do Google.
+Bot para WhatsApp desenvolvido com whatsapp-web.js e TypeScript. Na qual possui funcionalidades comandos com IA integrado, manipulação de mídias, sistema de downloads de mídias de redes socias, comandos utilitários e entretenimento de grupos.
 
 ## Como Rodar
 
@@ -26,7 +26,7 @@ npm install
 
 3. Configure o arquivo `.env` com sua GEMINI_API_KEY.
 
-4. Inicie o bot e escaneie o QR Code:
+4. Inicie o bot e *escaneie o QR Code*:
 ```bash
 npm run dev
 ```
@@ -35,15 +35,17 @@ npm run dev
 
 ## Resumo de Comandos
 
+## Acesso ao menu de comandos
+ * !menu
+
 ### Inteligência Artificial (Gemini)
 * !ia - Conversa com a IA.
 * !ouvir - Transcreve áudios em texto (enviar ou responder a um áudio).
-* !zoar, !julgar, !coach, !professor, !dark - Personas da IA.
+* !zoar, !julgar, !coach, !professor, !dark - Personalidades da IA.
 
 ### Mídia e Figurinha
 * !sticker - Transforma imagem/vídeo em figurinha.
 * !toimg - Transforma figurinha em imagem.
-* !rbg - Remove o fundo de imagens.
 * !audio - Extrai o áudio de um vídeo.
 * !efeitoaudio - Aplica filtros em áudios (estourar, grave, agudo, etc).
 * !voz - Converte texto escrito em áudio (nota de voz).
