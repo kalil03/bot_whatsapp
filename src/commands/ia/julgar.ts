@@ -10,17 +10,13 @@ const JulgarCommand: Command = {
   execute: async (ctx: CommandContext) => {
     try {
       const mentions = await getMentionedUsers(ctx.message);
-      let targetId = resolveUserId(ctx.args, mentions) || ctx.message.from;
-      let targetName = targetId.split('@')[0];
+      const targetId = resolveUserId(ctx.args, mentions) || ctx.message.from;
+      const targetName = targetId.split('@')[0];
 
-      const input = `Julgue @${targetName} de forma sarcástica e zoeira. Retorne EXATAMENTE este formato e adicione um crime criativo:
-⚖️ Tribunal do Grupo
-Réu: @${targetName}
-Veredito: <CULPADO ou INOCENTE>
-Motivo: <motivo hilário gerado por você>`;
+      const input = `Julgue @${targetName} num tribunal de grupo de zap. Máximo 3 linhas: veredito, crime inventado e pena absurda. Sem template, fale direto.`;
 
       const response = await aiService.askAI(input, PersonaMode.ZOEIRA);
-      
+
       await ctx.client.sendMessage(ctx.message.from, response, {
         mentions: [targetId],
         quotedMessageId: ctx.message.id._serialized

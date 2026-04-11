@@ -17,7 +17,6 @@ function getRandomFilename(ext: string): string {
   return `${crypto.randomBytes(8).toString('hex')}.${ext}`;
 }
 
-// ─── Tipos ─────────────────────────────────────────────────────────────────
 
 export interface AnimeRecognition {
   initial_time: string;
@@ -34,7 +33,6 @@ export interface ImageSearch {
   [key: string]: any;
 }
 
-// ─── Upload de imagem ───────────────────────────────────────────────────────
 
 export async function uploadImage(imageBuffer: Buffer): Promise<string> {
   const service = new ImageUploadService('pixhost.to');
@@ -42,7 +40,6 @@ export async function uploadImage(imageBuffer: Buffer): Promise<string> {
   return directLink;
 }
 
-// ─── Emoji Mix ──────────────────────────────────────────────────────────────
 
 export function checkEmojiMixSupport(emoji1: string, emoji2: string) {
   return {
@@ -58,7 +55,6 @@ export async function emojiMix(emoji1: string, emoji2: string): Promise<Buffer |
   return data as Buffer;
 }
 
-// ─── Remove Background ──────────────────────────────────────────────────────
 
 export async function removeBackground(imageBuffer: Buffer): Promise<Buffer> {
   try {
@@ -109,7 +105,6 @@ export async function removeBackground(imageBuffer: Buffer): Promise<Buffer> {
   }
 }
 
-// ─── Reconhecimento de Anime ────────────────────────────────────────────────
 
 export async function animeRecognition(imageBuffer: Buffer): Promise<AnimeRecognition | null> {
   const blob = new Blob([new Uint8Array(imageBuffer)], { type: 'image/jpeg' });
@@ -132,7 +127,6 @@ export async function animeRecognition(imageBuffer: Buffer): Promise<AnimeRecogn
   };
 }
 
-// ─── Busca Imagem Google ────────────────────────────────────────────────────
 
 export async function imageSearchGoogle(text: string): Promise<ImageSearch[]> {
   const google = (await import('@victorsouzaleal/googlethis')).default;

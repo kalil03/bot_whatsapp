@@ -9,8 +9,6 @@ import qs from 'querystring';
 import { obterDadosBrasileiraoA, obterDadosBrasileiraoB } from './brasileirao.util';
 
 
-// ─── Tipos ─────────────────────────────────────────────────────────────────
-
 export interface News { title: string; published: string; author: string; url: string }
 export interface WebSearch { title: string; url: string; description: string }
 export interface AnimeRelease { name: string; episode: string; url: string }
@@ -26,8 +24,6 @@ export interface WeatherInfo {
   current: { last_updated: string; temp: string; feelslike: string; condition: string; wind: string; humidity: string; cloud: string };
   forecast: { day: string; max: string; min: string; avg: string; condition: string; max_wind: string; rain: string; chance_rain: string; snow: string; chance_snow: string; uv: number }[]
 }
-
-// ─── Funções ────────────────────────────────────────────────────────────────
 
 function timestampToDate(ts: number): string {
   return moment(ts).tz('America/Sao_Paulo').format('DD/MM/YYYY HH:mm:ss');
@@ -136,12 +132,12 @@ export async function webSearchGoogle(texto: string): Promise<WebSearch[]> {
 export async function wheatherInfo(location: string): Promise<WeatherInfo> {
   let searchLocation = location;
   
-  // Se for uma pesquisa simples (sem vírgula ou espaço), tenta validar se é no Brasil
+  // Valida se é no Brasil
   if (!location.includes(',') && !location.includes(' ')) {
     try {
       const { data: searchResults } = await axios.get(`http://api.weatherapi.com/v1/search.json?key=516f58a20b6c4ad3986123104242805&q=${encodeURIComponent(location)}`);
       if (searchResults && searchResults.length > 0) {
-        // Tenta encontrar o primeiro resultado que seja no Brasil
+        // Busca resultado no Brasil
         const brResult = searchResults.find((r: any) => r.country.toLowerCase().includes('brazil') || r.country.toLowerCase().includes('brasil'));
         if (brResult) {
           searchLocation = `${brResult.name}, ${brResult.region}, Brazil`;
@@ -150,7 +146,7 @@ export async function wheatherInfo(location: string): Promise<WeatherInfo> {
         }
       }
     } catch {
-      // Caso a busca falhe, continua com a localização original
+      // Continua com localização original
     }
   }
 

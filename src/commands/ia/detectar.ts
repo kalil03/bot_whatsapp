@@ -13,14 +13,10 @@ const DetectarCommand: Command = {
       }
 
       const item = ctx.args.join(' ');
-      const input = `Seja sarcástico e invente um nível (0 a 100%) e uma classe para o item "${item}". Retorne EXATAMENTE neste formato:
-🧪 Detector
-Item: ${item}
-Nível: <% genérico>
-Classe: <frase criativa inventada por você>`;
+      const input = `Detectar "${item}" com humor de grupo de zap. Invente um nível (0-100%) e uma descrição absurda. Máximo 2 linhas. Sem template.`;
 
       const response = await aiService.askAI(input, PersonaMode.ZOEIRA);
-      
+
       await ctx.client.sendMessage(ctx.message.from, response, {
         quotedMessageId: ctx.message.id._serialized
       });

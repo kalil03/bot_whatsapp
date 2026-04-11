@@ -39,7 +39,7 @@ const GadometroCommand: Command = {
 
     const randomPercent = Math.floor(Math.random() * 101);
     
-    // Mantemos o registro para fins de ranking.
+
     await RankingService.addPoints(chat.id._serialized, targetUser, 'gado', randomPercent).catch(() => {});
 
     const replyText = `🐃 *Gadômetro*\n\nFoi detectado um nível de gado de *${randomPercent}%*`;

@@ -10,7 +10,7 @@ import fs from 'fs';
 import path from 'path';
 import http from 'http';
 
-// ─── Servidor Keep Alive (Hugging Face / Koyeb) ──────────────────────────────
+// Servidor Keep Alive
 const PORT = process.env.PORT || 7860;
 http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -54,9 +54,7 @@ const handleMessage = async (message: any) => {
     const body = message.body || '';
     const userId = message.author || message.from;
 
-    // Se a mensagem for minha (enviada pelo bot), redirecionamos o 'from' para o 'to'
-    // para que a resposta seja enviada ao chat correto (grupo ou contato),
-    // já que no whatsapp-web.js em mensagens nossas o 'from' é o nosso próprio JID.
+    // Redireciona mensagens nossas para o chat correto
     if (isFromMe && message.to) {
       message.from = message.to;
     }
@@ -104,7 +102,7 @@ logger.info('🚀 Inicializando bot e banco de dados...');
 
 (async () => {
   try {
-    // Executa migrações automáticas para garantir que as tabelas existam (Hugging Face / Produção)
+    // Executa migrações automáticas
     await migrate(db, { migrationsFolder: path.resolve(__dirname, 'db/migrations') });
     logger.info('📦 Banco de dados sincronizado!');
     

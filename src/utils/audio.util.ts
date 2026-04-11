@@ -29,12 +29,10 @@ export interface MusicRecognition {
   artists: string;
 }
 
-// ─── Transcrição de Áudio ──────────────────────────────────────────────────
 
 export async function audioTranscription(audioBuffer: Buffer): Promise<string> {
   try {
-    // Usa o Gemini do próprio usuário configurado no .env
-    // É muito mais estável que buscar chaves públicas que o Vercel bloqueia
+    // Usa o Gemini
     return await aiService.transcribeAudio(audioBuffer);
   } catch (error) {
     logger.error({ err: error }, 'Erro na transcrição via Gemini');
@@ -42,7 +40,6 @@ export async function audioTranscription(audioBuffer: Buffer): Promise<string> {
   }
 }
 
-// ─── Reconhecimento de Música ──────────────────────────────────────────────
 
 export async function musicRecognition(mediaBuffer: Buffer, messageType: string): Promise<MusicRecognition | null> {
   const fileType = await fileTypeFromBuffer(mediaBuffer);
@@ -101,7 +98,6 @@ export async function musicRecognition(mediaBuffer: Buffer, messageType: string)
   return null;
 }
 
-// ─── Texto para Voz ─────────────────────────────────────────────────────────
 
 export async function textToVoice(lang: 'pt' | 'en' | 'ja' | 'es' | 'it' | 'ru' | 'ko' | 'sv', text: string): Promise<Buffer> {
   const audioPathMp3 = getTempPath('mp3');
@@ -132,7 +128,6 @@ export async function textToVoice(lang: 'pt' | 'en' | 'ja' | 'es' | 'it' | 'ru' 
   return buffer;
 }
 
-// ─── Efeitos de Áudio ──────────────────────────────────────────────────────
 
 export async function audioModified(audioBuffer: Buffer, type: AudioModificationType): Promise<Buffer> {
   const inputPath = getTempPath('mp3');

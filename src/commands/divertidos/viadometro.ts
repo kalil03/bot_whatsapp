@@ -39,12 +39,12 @@ const ViadometroCommand: Command = {
 
     const randomPercent = Math.floor(Math.random() * 101);
     
-    // Como a nova lógica registra no banco, a mantemos aqui também.
+
     await RankingService.addPoints(chat.id._serialized, targetUser, 'gay', randomPercent).catch(() => {});
 
     const replyText = `🏳️‍🌈 *Viadômetro*\n\nFoi detectado um nível de viadagem de *${randomPercent}%*`;
     
-    // Se respondeu a uma mensagem, responde a ela. Se marcou, envia respondendo ao autor (ctx).
+    // Define quem receberá a resposta
     const quotedId = ctx.message.hasQuotedMsg ? (await ctx.message.getQuotedMessage()).id._serialized : ctx.message.id._serialized;
 
     await ctx.client.sendMessage(ctx.message.from, replyText, {

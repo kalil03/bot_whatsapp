@@ -10,25 +10,21 @@ const ZoarCommand: Command = {
   execute: async (ctx: CommandContext) => {
     try {
       const mentions = await getMentionedUsers(ctx.message);
-      let targetId = resolveUserId(ctx.args, mentions);
-      
+      const targetId = resolveUserId(ctx.args, mentions);
+
       let input = '';
       if (targetId) {
-        let targetName = targetId.split('@')[0];
-        input = `Faça uma análise de zoeira leve sobre @${targetName}. Formule sua resposta exatamente assim:
-🤡 Análise concluída
-Alvo: <nome>
-Diagnóstico: <frase sarcástica>
-Nível de perigo: <%>`;
+        const targetName = targetId.split('@')[0];
+        input = `Zoar @${targetName} em 2 linhas máximo. Humor de grupo de zap, criativo e sem dó.`;
       } else if (ctx.args.length > 0) {
-        input = `Zoeira leve sobre: ${ctx.args.join(' ')}. Responda como uma brincadeira.`;
+        input = `Zoar de: "${ctx.args.join(' ')}". 2 linhas máximo, humor de grupo de zap.`;
       } else {
         await ctx.client.sendMessage(ctx.message.from, `Uso: ${ctx.prefix}zoar @user ou <texto>`);
         return;
       }
 
       const response = await aiService.askAI(input, PersonaMode.ZOEIRA);
-      
+
       await ctx.client.sendMessage(ctx.message.from, response, {
         mentions: targetId ? [targetId] : [],
         quotedMessageId: ctx.message.id._serialized

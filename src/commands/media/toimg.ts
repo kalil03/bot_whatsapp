@@ -12,7 +12,7 @@ const ToImgCommand: Command = {
 
       const quotedMsg = await ctx.message.getQuotedMessage();
       
-      // Stickers come as type 'sticker' or have sendMediaAsSticker true
+      // Verifica se é sticker
       if (quotedMsg.type !== 'sticker') {
         await ctx.client.sendMessage(ctx.message.from, 'A mensagem citada não parece ser uma figurinha.');
         return;

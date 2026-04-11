@@ -19,7 +19,7 @@
     "axios": "^1.14.0",
     "better-sqlite3": "^11.5.0",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.36.1",
+    "drizzle-orm": "^0.45.2",
     "duck-duck-scrape": "^2.2.7",
     "emoji-mixer": "^1.2.2",
     "fb-downloader-scrapper": "^3.0.1",
@@ -42,7 +42,7 @@
     "querystring": "^0.2.1",
     "user-agents": "^2.1.17",
     "whatsapp-web.js": "^1.26.0",
-    "yt-search": "^2.13.1",
+    "yt-search": "^0.0.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -53,7 +53,7 @@
     "@types/node": "^22.8.7",
     "@types/qrcode-terminal": "latest",
     "@types/yt-search": "^2.10.3",
-    "drizzle-kit": "^0.28.0",
+    "drizzle-kit": "^0.31.10",
     "pino-pretty": "^11.3.0",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3"

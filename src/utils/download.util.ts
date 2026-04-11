@@ -13,7 +13,6 @@ import os from 'os';
 import crypto from 'crypto';
 import { logger } from '../app/logger';
 
-// ─── Tipos ─────────────────────────────────────────────────────────────────
 
 export interface YTInfo {
   id_video: string;
@@ -62,7 +61,6 @@ export interface ImageSearch {
   [key: string]: any;
 }
 
-// ─── Helpers ───────────────────────────────────────────────────────────────
 
 function formatSeconds(seconds: number): string {
   const h = Math.floor(seconds / 3600);
@@ -88,7 +86,6 @@ const YT_COOKIES = [
   }
 ];
 
-// ─── Download Functions ─────────────────────────────────────────────────────
 
 export async function xMedia(url: string): Promise<XMedia | null> {
   try {
@@ -171,21 +168,21 @@ export async function youtubeMedia(text: string): Promise<YTInfo | null> {
     const isURL = /https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(text);
     const query = isURL ? text : `ytsearch1:${text}`;
     
-    // Procura o yt-dlp no bin local ou no PATH do sistema (Docker)
+    // Procura o yt-dlp
     const localYtDlp = path.join(process.cwd(), 'bin', 'yt-dlp');
     const ytDlpPath = fs.existsSync(localYtDlp) ? localYtDlp : 'yt-dlp';
     
     const nodePath = process.execPath;
 
-    // Executa yt-dlp para pegar metadados e URL de stream em MP4
+    // Pega metadados
     const { stdout } = await execAsync(`${ytDlpPath} --js-runtimes "${nodePath}" "${query}" --print "%(id)s|%(title)s|%(duration)s|%(uploader)s|%(live_status)s|%(url)s" -f "best[ext=mp4]/best" --no-playlist`);
     const lines = stdout.trim().split('\n');
-    const lastLine = lines[lines.length - 1]; // Pega a última linha caso haja avisos acima
+    const lastLine = lines[lines.length - 1]; // Pega a última linha
     
     const [id, title, duration, channel, liveStatus, url] = lastLine.split('|');
     if (!id || !url) return null;
 
-    // Bufferiza o vídeo para evitar 403 do Axios (usando o yt-dlp para baixar também se necessário)
+    // Baixa o vídeo
     const tempPath = path.join(os.tmpdir(), `ytdl_${crypto.randomBytes(6).toString('hex')}.mp4`);
     await execAsync(`${ytDlpPath} --js-runtimes "${nodePath}" "${id}" -o "${tempPath}" -f "best[ext=mp4]/best" --max-filesize 50M`);
 

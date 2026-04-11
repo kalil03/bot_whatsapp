@@ -19,17 +19,17 @@ const BrasileiraoCommand: Command = {
         return;
       }
 
-      const [round] = rodadas.filter(r => r.rodada_atual === true);
+      const [round] = rodadas.filter((r: any) => r.rodada_atual === true);
       const matches = round?.partidas ?? [];
 
       let replyText = `⚽ *Brasileirão série ${serieSelected}*\n\n🗒️ *Tabela*:\n\n`;
-      tabela.forEach(team => {
+      tabela.forEach((team: any) => {
         replyText += `- ${team.posicao}° ${team.nome} - P:${team.pontos} J:${team.jogos} V:${team.vitorias}\n`;
       });
 
       if (matches.length > 0) {
         replyText += `\n📆 *Rodada Atual (${round.rodada})*:\n\n`;
-        matches.forEach(match => {
+        matches.forEach((match: any) => {
           const res = match.gols_casa !== undefined ? match.resultado_texto : '---';
           replyText += `- Partida: ${match.time_casa} x ${match.time_fora}\n- Data: ${match.data}\n- Local: ${match.local}\n- Resultado: ${res}\n\n`;
         });
